@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>متجر النخبة — بغداد</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green:  #1a8a5a;
+      --green2: #22b573;
+      --dark:   #0a1a10;
+      --cream:  #f5fdf8;
+      --warm:   #eafaf2;
+      --muted:  #6a8a78;
+      --white:  #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Tajawal', sans-serif; background: var(--cream); color: var(--dark); overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 5%;
+      background: rgba(10,26,16,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(26,138,90,0.2);
+    }
+    .logo { font-size: 1.5rem; font-weight: 900; color: var(--green2); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: #a0c8b0; text-decoration: none; font-size: 0.95rem; transition: color .2s; }
+    .nav-links a:hover { color: var(--green2); }
+    .nav-cta {
+      background: var(--green); color: white; border: none;
+      padding: 10px 24px; border-radius: 4px;
+      font-family: 'Tajawal', sans-serif; font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; transition: background .2s;
+    }
+    .nav-cta:hover { background: var(--green2); }
+
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #0a1a10 0%, #122a1c 55%, #0a1a10 100%);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 5% 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 55% at 50% 40%, rgba(26,138,90,0.18) 0%, transparent 70%);
+    }
+    .hero-badge {
+      display: inline-block;
+      border: 1px solid rgba(34,181,115,0.5);
+      color: var(--green2); font-size: 0.78rem; letter-spacing: 3px;
+      padding: 6px 18px; border-radius: 2px; margin-bottom: 28px;
+    }
+    .hero h1 { font-size: clamp(2.6rem, 6.5vw, 5rem); font-weight: 900; color: white; line-height: 1.1; margin-bottom: 20px; }
+    .hero h1 span { color: var(--green2); }
+    .hero p { font-size: 1.1rem; color: #90b8a0; max-width: 520px; margin: 0 auto 40px; line-height: 1.85; }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--green); color: white; padding: 14px 36px;
+      border-radius: 4px; border: none; font-family: 'Tajawal', sans-serif;
+      font-size: 1rem; font-weight: 700; cursor: pointer;
+      transition: background .2s, transform .15s; text-decoration: none; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--green2); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent; color: white; padding: 14px 36px;
+      border-radius: 4px; border: 1px solid rgba(255,255,255,0.25);
+      font-family: 'Tajawal', sans-serif; font-size: 1rem;
+      cursor: pointer; transition: border-color .2s, color .2s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--green2); color: var(--green2); }
+    .hero-stats { display: flex; gap: 48px; justify-content: center; margin-top: 64px; flex-wrap: wrap; }
+    .stat-num { font-size: 2.2rem; font-weight: 900; color: var(--green2); }
+    .stat-label { font-size: 0.85rem; color: #6a8a78; margin-top: 4px; }
+
+    section { padding: 90px 5%; }
+    .section-label { font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; line-height: 1.2; margin-bottom: 16px; }
+    .section-sub { color: var(--muted); font-size: 1.05rem; line-height: 1.8; max-width: 520px; }
+
+    /* FEATURES */
+    .features-sec { background: var(--white); }
+    .features-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .features-img {
+      background: linear-gradient(135deg, #122a1c, #0a1a10);
+      border-radius: 12px; height: 420px;
+      display: flex; align-items: center; justify-content: center; font-size: 8rem;
+      border: 1px solid rgba(26,138,90,0.2);
+    }
+    .feature-list { display: flex; flex-direction: column; gap: 24px; margin-top: 32px; }
+    .feature { display: flex; gap: 16px; align-items: flex-start; }
+    .feature-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: rgba(26,138,90,0.1); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+    }
+    .feature-text h4 { font-weight: 700; margin-bottom: 4px; }
+    .feature-text p { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+
+    /* PRODUCTS */
+    .products { background: var(--cream); }
+    .products-header { text-align: center; margin-bottom: 56px; }
+    .products-tabs { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
+    .tab {
+      padding: 10px 22px; border-radius: 40px; border: 1px solid #c0d8c8;
+      background: transparent; font-family: 'Tajawal', sans-serif;
+      font-size: 0.95rem; cursor: pointer; transition: all .2s; color: var(--muted);
+    }
+    .tab.active, .tab:hover { background: var(--green); border-color: var(--green); color: white; font-weight: 700; }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
+    .product-card {
+      background: var(--white); border-radius: 14px; overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06); transition: transform .2s, box-shadow .2s;
+    }
+    .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(26,138,90,0.1); }
+    .product-img {
+      height: 180px; display: flex; align-items: center; justify-content: center;
+      font-size: 4rem; background: var(--warm);
+    }
+    .product-body { padding: 20px; }
+    .product-body h3 { font-weight: 700; margin-bottom: 6px; }
+    .product-body p { font-size: 0.85rem; color: var(--muted); margin-bottom: 14px; line-height: 1.5; }
+    .product-footer { display: flex; justify-content: space-between; align-items: center; }
+    .price { font-size: 1.1rem; font-weight: 900; color: var(--green); }
+    .old-price { font-size: 0.85rem; color: #aaa; text-decoration: line-through; margin-right: 6px; }
+    .buy-btn {
+      background: var(--green); color: white; border: none;
+      padding: 8px 18px; border-radius: 6px;
+      font-family: 'Tajawal', sans-serif; font-size: 0.85rem;
+      cursor: pointer; transition: background .2s;
+    }
+    .buy-btn:hover { background: var(--green2); }
+    .badge {
+      display: inline-block; background: #ff4444; color: white;
+      font-size: 0.7rem; font-weight: 700; padding: 2px 8px;
+      border-radius: 4px; margin-bottom: 8px;
+    }
+
+    /* TELEGRAM */
+    .telegram-section {
+      background: linear-gradient(135deg, #0a1628, #0d2137);
+      color: white; text-align: center; padding: 80px 5%;
+    }
+    .telegram-section .section-title { color: white; }
+    .telegram-section p { color: #a0b4c8; margin: 16px auto 36px; max-width: 480px; line-height: 1.8; }
+    .tg-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #2AABEE; color: white; padding: 16px 40px;
+      border-radius: 6px; border: none; font-family: 'Tajawal', sans-serif;
+      font-size: 1.05rem; font-weight: 700; cursor: pointer;
+      transition: background .2s, transform .15s; text-decoration: none;
+    }
+    .tg-btn:hover { background: #1a96d8; transform: translateY(-2px); }
+
+    /* CONTACT */
+    .contact { background: var(--dark); color: white; text-align: center; }
+    .contact .section-title { color: white; }
+    .contact .section-sub { color: #90b8a0; margin: 0 auto 48px; }
+    .contact-form { max-width: 580px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+    .contact-form input, .contact-form select, .contact-form textarea {
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+      color: white; padding: 14px 16px; border-radius: 6px;
+      font-family: 'Tajawal', sans-serif; font-size: 0.95rem; outline: none;
+      transition: border-color .2s; text-align: right;
+    }
+    .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { border-color: var(--green2); }
+    .contact-form select option { background: #0a1a10; }
+    .contact-form textarea { resize: vertical; min-height: 100px; }
+
+    footer { background: #040d06; color: #446655; padding: 40px 5%; text-align: center; font-size: 0.9rem; }
+    footer span { color: var(--green2); }
+
+    @media (max-width: 768px) {
+      .features-inner { grid-template-columns: 1fr; }
+      .features-img { height: 260px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🛒 متجر النخبة</div>
+  <ul class="nav-links">
+    <li><a href="#features">مميزاتنا</a></li>
+    <li><a href="#products">منتجاتنا</a></li>
+    <li><a href="#contact">تواصل معنا</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">اطلب الآن</button>
+</nav>
+
+<section class="hero">
+  <div style="position:relative; z-index:1;">
+    <div class="hero-badge">بغداد — تسوق بثقة</div>
+    <h1>كل ما تحتاج<br/><span>بين يديك</span></h1>
+    <p>متجر متكامل في بغداد يقدم أجود المنتجات بأفضل الأسعار مع خدمة توصيل سريع لباب بيتك</p>
+    <div class="hero-btns">
+      <a href="#products" class="btn-primary">تصفح المنتجات</a>
+      <a href="#contact" class="btn-outline">اطلب الآن</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">+500</div><div class="stat-label">منتج متاح</div></div>
+      <div class="stat"><div class="stat-num">+3000</div><div class="stat-label">عميل راضٍ</div></div>
+      <div class="stat"><div class="stat-num">⭐ 4.8</div><div class="stat-label">التقييم</div></div>
+      <div class="stat"><div class="stat-num">24h</div><div class="stat-label">توصيل سريع</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="features-sec" id="features">
+  <div class="features-inner">
+    <div class="features-img">🛍️</div>
+    <div>
+      <div class="section-label">لماذا نحن</div>
+      <h2 class="section-title">تسوق أسهل وأذكى</h2>
+      <p class="section-sub">نوفر تجربة تسوق مريحة وموثوقة مع ضمان جودة كل منتج</p>
+      <div class="feature-list">
+        <div class="feature">
+          <div class="feature-icon">🚚</div>
+          <div class="feature-text">
+            <h4>توصيل سريع لبغداد كلها</h4>
+            <p>نوصل طلبك خلال 24 ساعة لأي منطقة في بغداد</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">✅</div>
+          <div class="feature-text">
+            <h4>ضمان الجودة</h4>
+            <p>كل منتج مضمون الجودة مع إمكانية الإرجاع خلال 7 أيام</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">💰</div>
+          <div class="feature-text">
+            <h4>أسعار تنافسية</h4>
+            <p>أفضل الأسعار في السوق مع عروض وخصومات دورية</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">📞</div>
+          <div class="feature-text">
+            <h4>دعم عملاء متواصل</h4>
+            <p>فريق خدمة عملاء متاح طوال اليوم للإجابة على استفساراتك</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="products" id="products">
+  <div class="products-header">
+    <div class="section-label">منتجاتنا</div>
+    <h2 class="section-title">أحدث المنتجات المتاحة</h2>
+    <p class="section-sub" style="margin: 0 auto;">مجموعة متنوعة من أجود المنتجات بأفضل الأسعار</p>
+  </div>
+  <div class="products-tabs">
+    <button class="tab active">الكل</button>
+    <button class="tab">إلكترونيات</button>
+    <button class="tab">ملابس</button>
+    <button class="tab">منزل ومطبخ</button>
+    <button class="tab">عروض</button>
+  </div>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img">📱</div>
+      <div class="product-body">
+        <div class="badge">جديد</div>
+        <h3>سماعة بلوتوث</h3>
+        <p>جودة صوت عالية مع بطارية تدوم 24 ساعة</p>
+        <div class="product-footer">
+          <div><span class="old-price">50,000</span><span class="price">35,000 د.ع</span></div>
+          <button class="buy-btn">اطلب الآن</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">⌚</div>
+      <div class="product-body">
+        <div class="badge">خصم 30%</div>
+        <h3>ساعة ذكية</h3>
+        <p>تتبع نشاطك اليومي وإشعارات الهاتف على معصمك</p>
+        <div class="product-footer">
+          <div><span class="old-price">80,000</span><span class="price">55,000 د.ع</span></div>
+          <button class="buy-btn">اطلب الآن</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">👕</div>
+      <div class="product-body">
+        <h3>تيشيرت قطني</h3>
+        <p>قطن 100% عالي الجودة — متوفر بألوان متعددة</p>
+        <div class="product-footer">
+          <div><span class="price">12,000 د.ع</span></div>
+          <button class="buy-btn">اطلب الآن</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">☕</div>
+      <div class="product-body">
+        <div class="badge">الأكثر مبيعاً</div>
+        <h3>ماكينة قهوة</h3>
+        <p>اصنع قهوتك المفضلة في البيت بضغطة واحدة</p>
+        <div class="product-footer">
+          <div><span class="price">75,000 د.ع</span></div>
+          <button class="buy-btn">اطلب الآن</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">🎒</div>
+      <div class="product-body">
+        <h3>حقيبة ظهر</h3>
+        <p>مقاومة للماء مع جيوب متعددة ومريحة للحمل</p>
+        <div class="product-footer">
+          <div><span class="old-price">30,000</span><span class="price">20,000 د.ع</span></div>
+          <button class="buy-btn">اطلب الآن</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">🕯️</div>
+      <div class="product-body">
+        <h3>ديكور منزلي</h3>
+        <p>مجموعة ديكور أنيقة تضيف لمسة جمالية لبيتك</p>
+        <div class="product-footer">
+          <div><span class="price">15,000 د.ع</span></div>
+          <button class="buy-btn">اطلب الآن</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="telegram-section">
+  <div style="font-size:3.5rem; margin-bottom:20px;">✈️</div>
+  <div class="section-label" style="color:#2AABEE; letter-spacing:3px; font-size:.75rem; text-transform:uppercase; margin-bottom:12px;">اطلب عبر تيليغرام</div>
+  <h2 class="section-title">طلبك بضغطة واحدة</h2>
+  <p>تصفح كامل المنتجات واطلب مباشرة عبر بوت تيليغرام مع تتبع طلبك لحظة بلحظة</p>
+  <a href="#" class="tg-btn">✈️ اطلب عبر تيليغرام</a>
+</section>
+
+<section class="contact" id="contact">
+  <div class="section-label" style="color:var(--green2);">تواصل معنا</div>
+  <h2 class="section-title">اطلب أو استفسر الآن</h2>
+  <p class="section-sub">أرسل طلبك أو استفسارك ونتواصل معك فوراً</p>
+  <div class="contact-form">
+    <input type="text" placeholder="اسمك الكامل" />
+    <input type="tel" placeholder="رقم هاتفك — 07XX XXX XXXX" />
+    <select>
+      <option>استفسار عن منتج</option>
+      <option>طلب شراء</option>
+      <option>تتبع طلب سابق</option>
+      <option>شكوى أو اقتراح</option>
+    </select>
+    <textarea placeholder="اكتب رسالتك هنا..."></textarea>
+    <button class="btn-primary" style="padding:16px; font-size:1.05rem; border-radius:6px;">إرسال 🛒</button>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 متجر النخبة — بغداد، العراق | ☎️ 07XX-XXX-XXXX</p>
+  <p style="margin-top:8px;">صُمم بـ ❤️ بواسطة <span>حسنين علي للبرمجة</span></p>
+</footer>
+
+</body>
+</html>
